@@ -12,7 +12,7 @@ import org.bukkit.inventory.InventoryHolder
 abstract class Menu(
     protected var playerMenuUtility: PlayerMenuUtility
 ) : InventoryHolder {
-    private var _inventory: Inventory? = null
+    protected var _inventory: Inventory? = null
     abstract val menuName: Component?
 
     abstract val slots: Int
