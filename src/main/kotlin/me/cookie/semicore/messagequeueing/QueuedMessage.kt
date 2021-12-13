@@ -23,7 +23,7 @@ class QueuedMessage(
                 }
             }
             else -> {
-                // Everything is fine, GLOBAL receiver does not need additional variables
+                // GLOBAL receiver does not need additional variables
             }
         }
     }

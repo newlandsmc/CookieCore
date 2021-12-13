@@ -10,9 +10,9 @@ import org.bukkit.inventory.InventoryHolder
 
 
 abstract class Menu(
-    protected var playerMenuUtility: PlayerMenuUtility
+    private var playerMenuUtility: PlayerMenuUtility
 ) : InventoryHolder {
-    protected var _inventory: Inventory? = null
+    private var _inventory: Inventory? = null
     abstract val menuName: Component?
 
     abstract val slots: Int
@@ -26,7 +26,7 @@ abstract class Menu(
     fun open() {
         _inventory = Bukkit.createInventory(this, slots, menuName!!)
         setMenuItems()
-        playerMenuUtility.owner.openInventory(_inventory!!)
+        playerMenuUtility.player.openInventory(_inventory!!)
     }
 
     override fun getInventory(): Inventory {

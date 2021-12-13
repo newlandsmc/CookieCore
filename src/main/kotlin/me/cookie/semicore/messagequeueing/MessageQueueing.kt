@@ -10,8 +10,6 @@ import org.bukkit.scheduler.BukkitRunnable
 private val messageQueue = mutableListOf<QueuedMessage>()
 
 class MessageQueueing {
-
-
     private val plugin = JavaPlugin.getPlugin(SemiCore::class.java)
 
     private val garbage = mutableSetOf<QueuedMessage>()
@@ -21,8 +19,8 @@ class MessageQueueing {
             override fun run() {
                 if(messageQueue.isEmpty()) return
                 messageQueue.forEach { message ->
-                    // Check if its time for a message to be sent
-                    if(!(System.currentTimeMillis() >= message.whenToSend)) return@forEach
+                    // Check if it's time for a message to be sent
+                    if(System.currentTimeMillis() < message.whenToSend) return@forEach
 
                     when(message.receiver){
                         MessageReceiver.GLOBAL -> {

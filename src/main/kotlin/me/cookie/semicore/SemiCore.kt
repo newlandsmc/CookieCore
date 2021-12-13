@@ -11,7 +11,6 @@ class SemiCore: JavaPlugin() {
     }
 }
 
-
 private val playerMenuUtilityMap = HashMap<Player, PlayerMenuUtility>()
 
 val Player.playerMenuUtility: PlayerMenuUtility

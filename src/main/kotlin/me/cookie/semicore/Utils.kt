@@ -8,11 +8,12 @@ import java.util.*
 // Component to plain string
 fun Component.toPlainString(): String = PlainTextComponentSerializer.plainText().serialize(this)
 
+// Remove dashes from UUID
 fun UUID.cleanUp(): String{
     return this.toString().replace("-", "")
 }
 
-// Placeholder formatting
+// Player placeholder formatting
 fun String.formatPlayerPlaceholders(player: Player): String {
     var formatted = this
     if(this.contains("(playerName)"))
