@@ -6,18 +6,17 @@ import me.cookie.semicore.message.messagequeueing.dialogueQueue
 import org.bukkit.entity.Player
 
 class Dialogue(
-    var messages: List<QueuedMessage> = mutableListOf(),
+    var messages: MutableList<QueuedMessage> = mutableListOf(),
     var receiver: MessageReceiver = MessageReceiver.GLOBAL,
     var whenToSend: Long =  System.currentTimeMillis(),
-    var playerToSend: Player? = null,
+    var playerToSend: Player = messages[0].playerToSend!!,
     var playersToSend: List<Player> = listOf()
 ) {
     init {
         when(receiver){
             MessageReceiver.PLAYER -> {
-                if(playerToSend == null) {
-                    throw NullPointerException("You forgot to add a player to QueuedMessage")
-                }
+                // PLAYER receiver does not need additional variables, grabs it from the first QueuedMessage since it's
+                // required for it to have it
             }
             MessageReceiver.PLAYERS -> {
                 if(playersToSend.isEmpty()) {

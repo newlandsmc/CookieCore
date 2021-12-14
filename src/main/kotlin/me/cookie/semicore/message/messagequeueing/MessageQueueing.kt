@@ -14,17 +14,18 @@ val dialogueQueue = mutableListOf<Dialogue>()
 class MessageQueueing {
     private val plugin = JavaPlugin.getPlugin(SemiCore::class.java)
 
-    private val garbage = mutableSetOf<Any>()
+    private val messageGarbage = mutableSetOf<QueuedMessage>()
+    private val dialogueMessageGarbage = mutableSetOf<QueuedMessage>()
+    private val dialogueGarbage = mutableSetOf<Dialogue>()
 
     fun startRunnable(){
         object: BukkitRunnable() {
             override fun run() {
-
-
+                val loopTime = System.currentTimeMillis() // To keep time consistent in between inner loops
                 if(messageQueue.isNotEmpty()) {
                     messageQueue.forEach messageQueueLoop@ { message ->
                         // Check if it's time for a message to be sent
-                        if(System.currentTimeMillis() < message.whenToSend) return@messageQueueLoop
+                        if(loopTime < message.whenToSend) return@messageQueueLoop
 
                         when(message.receiver){
                             MessageReceiver.GLOBAL -> {
@@ -39,26 +40,48 @@ class MessageQueueing {
                                 }
                             }
                         }
-                        message.isSent = true
-                        garbage.add(message)
+                        messageGarbage.add(message)
                     }
-                    messageQueue.removeAll(garbage)
+                    messageQueue.removeAll(messageGarbage)
+                    messageGarbage.clear()
                 }
 
                 if(dialogueQueue.isNotEmpty()){
-                    dialogueQueue.forEach{ dialogue ->
-                        dialogue.messages.forEach dialogueMessageLoop@ { message ->
-                            if(message.isSent) return@dialogueMessageLoop // That part of the dialogue was already sent
-                            if(System.currentTimeMillis() >= message.whenToSend) return@dialogueMessageLoop
+                    dialogueQueue.forEach dialogueLoop@ { dialogue ->
+                        if(dialogue.messages.isEmpty()){
+                            dialogueGarbage.add(dialogue)
+                            return@dialogueLoop
                         }
+                        dialogue.messages.forEach dialogueMessageLoop@ { message ->
+                            if(loopTime < message.whenToSend) return@dialogueMessageLoop
+                            when(message.receiver){
+                                MessageReceiver.GLOBAL -> {
+                                    Bukkit.broadcast(message.message)
+                                }
+                                MessageReceiver.PLAYER -> {
+                                    message.playerToSend!!.sendMessage(message.message)
+                                }
+                                MessageReceiver.PLAYERS -> {
+                                    message.playersToSend!!.forEach { player ->
+                                        player.sendMessage(message.message)
+                                    }
+                                }
+                            }
+
+                            dialogueMessageGarbage.add(message)
+                        }
+                        dialogue.messages.removeAll(dialogueMessageGarbage)
+                        dialogueMessageGarbage.clear()
                     }
+                    dialogueQueue.removeAll(dialogueGarbage)
+                    dialogueGarbage.clear()
                 }
 
 
-                garbage.clear()
+
             }
 
-        }.runTaskTimer(plugin, 0, 10 /* half a second delay, for accuracy */)
+        }.runTaskTimer(plugin, 0, 20)
     }
 }
 

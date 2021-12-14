@@ -29,7 +29,7 @@ class SkipDialogue: CommandExecutor {
         val garbage = mutableListOf<Dialogue>()
 
         dialogueQueue.forEach dialogueLoop@ { dialogue ->
-            if(dialogue.playerToSend!!.uniqueId == sender.uniqueId){
+            if(dialogue.playerToSend.uniqueId == sender.uniqueId){
                 garbage.add(dialogue)
                 return@dialogueLoop
             }
