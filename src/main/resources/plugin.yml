@@ -1,3 +1,5 @@
 name: SemiCore
 main: me.cookie.semicore.SemiCore
 version: 1.0
+description: Core for SemiVanilla plugins
+api-version: 1.18
