@@ -1,4 +1,4 @@
-package me.cookie.semicore.messagequeueing
+package me.cookie.semicore.message.messagequeueing
 
 enum class MessageReceiver {
     // Receivers

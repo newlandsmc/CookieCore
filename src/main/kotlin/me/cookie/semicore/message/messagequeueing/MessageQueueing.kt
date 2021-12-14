@@ -1,4 +1,4 @@
-package me.cookie.semicore.messagequeueing
+package me.cookie.semicore.message.messagequeueing
 
 import me.cookie.semicore.SemiCore
 import net.kyori.adventure.text.Component
