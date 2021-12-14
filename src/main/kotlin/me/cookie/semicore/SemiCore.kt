@@ -1,13 +1,16 @@
 package me.cookie.semicore
 
-import net.kyori.adventure.text.minimessage.MiniMessage
+import me.cookie.semicore.commands.SkipDialogue
+import me.cookie.semicore.message.messagequeueing.MessageQueueing
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
 class SemiCore: JavaPlugin() {
     override fun onEnable() {
         logger.info("InfoMessage")
-        MiniMessage.get()
+        getCommand("skipdialogue")!!.setExecutor(SkipDialogue())
+        MessageQueueing().startRunnable()
+        saveDefaultConfig()
     }
 }
 

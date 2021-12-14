@@ -3,3 +3,14 @@ main: me.cookie.semicore.SemiCore
 version: 1.0
 description: Core for SemiVanilla plugins
 api-version: 1.18
+
+commands:
+  skipdialogue:
+    permission: semicore.dialogue.skip
+    description: Command that skips current dialogue (personal dialogue).
+    usage: /skipdialogue
+
+permissions:
+  semicore.dialogue.skip:
+    description: Permission to allow of skipping dialogue (personal dialogue).
+    default: op
