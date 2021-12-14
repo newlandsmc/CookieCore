@@ -2,7 +2,9 @@ package me.cookie.semicore
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
+import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import java.util.*
 
 // Component to plain string
@@ -21,4 +23,23 @@ fun String.formatPlayerPlaceholders(player: Player): String {
     if(this.contains("(playerHealth)"))
         formatted = formatted.replace("(playerHealth)", "${player.health}")
     return formatted
+}
+
+
+// A modified handy method from spigot on stacking items in a list
+fun List<ItemStack>.compressSimilarItems(): List<ItemStack> {
+    val itemsCopy: MutableList<ItemStack> = this.toMutableList()
+    itemsCopy.removeIf{ obj: ItemStack? -> obj == null}
+    for (i in itemsCopy.indices) {
+        for (j in i + 1 until itemsCopy.size) {
+            if (itemsCopy[i].isSimilar(itemsCopy[j]) && itemsCopy[i].amount + itemsCopy[j]
+                    .amount <= itemsCopy[j].maxStackSize
+            ) {
+                itemsCopy[i].amount = itemsCopy[i].amount + itemsCopy[j].amount
+                itemsCopy[j] = ItemStack(Material.AIR) // Set to air as no nulls allowed
+            }
+        }
+    }
+    itemsCopy.removeIf{ obj: ItemStack -> obj.type == Material.AIR} // Clear all the airs
+    return itemsCopy
 }
