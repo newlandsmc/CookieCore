@@ -17,7 +17,7 @@ abstract class Menu(
 
     abstract val slots: Int
 
-    abstract fun handleClick(e: InventoryClickEvent?)
+    abstract fun handleClick(e: InventoryClickEvent)
 
     abstract fun handleClose(e: InventoryCloseEvent)
 
