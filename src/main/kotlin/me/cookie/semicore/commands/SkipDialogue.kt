@@ -30,11 +30,17 @@ class SkipDialogue: CommandExecutor {
 
         dialogueQueue.forEach dialogueLoop@ { dialogue ->
             if(dialogue.playerToSend.uniqueId == sender.uniqueId){
+                dialogue.messages.forEach { message ->
+                    dialogue.playerToSend.sendMessage(message.message)
+                }
                 garbage.add(dialogue)
                 return@dialogueLoop
             }
             dialogue.playersToSend.forEach { loopPlayer ->
                 if(loopPlayer.uniqueId == player.uniqueId){
+                    dialogue.messages.forEach { message ->
+                        loopPlayer.sendMessage(message.message)
+                    }
                     garbage.add(dialogue)
                     return@dialogueLoop
                 }
