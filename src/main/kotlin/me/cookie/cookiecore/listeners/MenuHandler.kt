@@ -1,6 +1,6 @@
-package me.cookie.semicore.listeners
+package me.cookie.cookiecore.listeners
 
-import me.cookie.semicore.gui.Menu
+import me.cookie.cookiecore.gui.Menu
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent

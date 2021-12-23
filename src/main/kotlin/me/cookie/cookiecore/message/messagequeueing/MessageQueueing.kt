@@ -1,7 +1,7 @@
-package me.cookie.semicore.message.messagequeueing
+package me.cookie.cookiecore.message.messagequeueing
 
-import me.cookie.semicore.SemiCore
-import me.cookie.semicore.message.dialogue.Dialogue
+import me.cookie.cookiecore.SemiCore
+import me.cookie.cookiecore.message.dialogue.Dialogue
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player

@@ -1,4 +1,4 @@
-package me.cookie.semicore.message.messagequeueing
+package me.cookie.cookiecore.message.messagequeueing
 
 import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player

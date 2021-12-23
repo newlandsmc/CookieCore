@@ -1,4 +1,4 @@
-package me.cookie.semicore
+package me.cookie.cookiecore
 
 import org.bukkit.entity.Player
 

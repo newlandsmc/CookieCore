@@ -1,8 +1,8 @@
-package me.cookie.semicore
+package me.cookie.cookiecore
 
-import me.cookie.semicore.commands.SkipDialogue
-import me.cookie.semicore.listeners.MenuHandler
-import me.cookie.semicore.message.messagequeueing.MessageQueueing
+import me.cookie.cookiecore.commands.SkipDialogue
+import me.cookie.cookiecore.listeners.MenuHandler
+import me.cookie.cookiecore.message.messagequeueing.MessageQueueing
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 

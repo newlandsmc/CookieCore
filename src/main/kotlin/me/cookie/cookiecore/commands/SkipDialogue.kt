@@ -1,8 +1,8 @@
-package me.cookie.semicore.commands
+package me.cookie.cookiecore.commands
 
-import me.cookie.semicore.SemiCore
-import me.cookie.semicore.message.dialogue.Dialogue
-import me.cookie.semicore.message.messagequeueing.dialogueQueue
+import me.cookie.cookiecore.SemiCore
+import me.cookie.cookiecore.message.dialogue.Dialogue
+import me.cookie.cookiecore.message.messagequeueing.dialogueQueue
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor

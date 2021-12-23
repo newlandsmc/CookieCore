@@ -1,6 +1,6 @@
-package me.cookie.semicore.gui
+package me.cookie.cookiecore.gui
 
-import me.cookie.semicore.PlayerMenuUtility
+import me.cookie.cookiecore.PlayerMenuUtility
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.event.inventory.InventoryClickEvent

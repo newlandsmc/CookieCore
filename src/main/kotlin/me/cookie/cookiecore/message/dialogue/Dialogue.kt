@@ -1,8 +1,8 @@
-package me.cookie.semicore.message.dialogue
+package me.cookie.cookiecore.message.dialogue
 
-import me.cookie.semicore.message.messagequeueing.MessageReceiver
-import me.cookie.semicore.message.messagequeueing.QueuedMessage
-import me.cookie.semicore.message.messagequeueing.dialogueQueue
+import me.cookie.cookiecore.message.messagequeueing.MessageReceiver
+import me.cookie.cookiecore.message.messagequeueing.QueuedMessage
+import me.cookie.cookiecore.message.messagequeueing.dialogueQueue
 import org.bukkit.entity.Player
 
 class Dialogue(
