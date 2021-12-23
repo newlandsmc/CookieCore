@@ -1,2 +1,2 @@
-rootProject.name = "SemiCore"
+rootProject.name = "CookieCore"
 
