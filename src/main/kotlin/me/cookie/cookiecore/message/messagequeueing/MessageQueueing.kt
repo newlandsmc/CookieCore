@@ -1,6 +1,6 @@
 package me.cookie.cookiecore.message.messagequeueing
 
-import me.cookie.cookiecore.SemiCore
+import me.cookie.cookiecore.CookieCore
 import me.cookie.cookiecore.message.dialogue.Dialogue
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
@@ -12,7 +12,7 @@ private val messageQueue = mutableListOf<QueuedMessage>()
 val dialogueQueue = mutableListOf<Dialogue>()
 
 class MessageQueueing {
-    private val plugin = JavaPlugin.getPlugin(SemiCore::class.java)
+    private val plugin = JavaPlugin.getPlugin(CookieCore::class.java)
 
     private val messageGarbage = mutableSetOf<QueuedMessage>()
     private val dialogueMessageGarbage = mutableSetOf<QueuedMessage>()

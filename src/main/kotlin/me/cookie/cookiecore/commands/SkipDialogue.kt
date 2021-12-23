@@ -1,6 +1,6 @@
 package me.cookie.cookiecore.commands
 
-import me.cookie.cookiecore.SemiCore
+import me.cookie.cookiecore.CookieCore
 import me.cookie.cookiecore.message.dialogue.Dialogue
 import me.cookie.cookiecore.message.messagequeueing.dialogueQueue
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
 class SkipDialogue: CommandExecutor {
-    private val plugin = JavaPlugin.getPlugin(SemiCore::class.java)
+    private val plugin = JavaPlugin.getPlugin(CookieCore::class.java)
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if(sender !is Player){
             sender.sendMessage("Only players are allowed to execute this command")

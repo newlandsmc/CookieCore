@@ -6,7 +6,7 @@ import me.cookie.cookiecore.message.messagequeueing.MessageQueueing
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
-class SemiCore: JavaPlugin() {
+class CookieCore: JavaPlugin() {
     override fun onEnable() {
         logger.info("InfoMessage")
         getCommand("skipdialogue")!!.setExecutor(SkipDialogue())
