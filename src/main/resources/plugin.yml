@@ -1,12 +1,12 @@
-name: SemiCore
-main: me.cookie.semicore.SemiCore
+name: CookieCore
+main: me.cookie.cookiecore.CookieCore
 version: 1.0
 description: Core for SemiVanilla plugins
 api-version: 1.18
 
 commands:
   skipdialogue:
-    permission: semicore.dialogue.skip
+    permission: cookiecore.dialogue.skip
     description: Command that skips current dialogue (personal dialogue).
     usage: /skipdialogue
 
