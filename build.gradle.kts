@@ -9,16 +9,14 @@ version = "1.0"
 
 repositories {
     mavenCentral()
-    maven {
-        url = uri("https://papermc.io/repo/repository/maven-public/")
-    }
+    maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
     maven {
         url = uri("https://hub.jeff-media.com/nexus/repository/jeff-media-public")
     }
 }
 
 dependencies {
-    compileOnly(kotlin("stdlib"))
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
     implementation("com.h2database:h2:2.0.202")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
     implementation("de.jeff_media:CustomBlockData:1.0.3")
@@ -30,9 +28,14 @@ dependencies {
 }
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
-    destinationDirectory.set(file("D:\\coding\\Test Servers\\TimeRewards\\plugins"))
+    destinationDirectory.set(file("/home/cookie/TestServers/sudoyou/plugins/"))
 }
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+}
+
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
