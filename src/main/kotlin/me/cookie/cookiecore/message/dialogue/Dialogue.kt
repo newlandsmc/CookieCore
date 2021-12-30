@@ -1,18 +1,23 @@
 package me.cookie.cookiecore.message.dialogue
 
+import me.cookie.cookiecore.inDialogue
 import me.cookie.cookiecore.message.messagequeueing.MessageReceiver
 import me.cookie.cookiecore.message.messagequeueing.QueuedMessage
 import me.cookie.cookiecore.message.messagequeueing.dialogueQueue
+import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 
 class Dialogue(
     var messages: MutableList<QueuedMessage> = mutableListOf(),
-    var receiver: MessageReceiver = MessageReceiver.GLOBAL,
+    receiver: MessageReceiver = MessageReceiver.GLOBAL,
     var whenToSend: Long =  System.currentTimeMillis(),
     var playerToSend: Player = messages[0].playerToSend!!,
     var playersToSend: List<Player> = listOf()
 ) {
     init {
+        for(message in messages){
+            message.message = Component.text("[DIALOGUE]").append(message.message)
+        }
         when(receiver){
             MessageReceiver.PLAYER -> {
                 // PLAYER receiver does not need additional variables, grabs it from the first QueuedMessage since it's
@@ -32,4 +37,5 @@ class Dialogue(
 
 fun Player.queueDialogue(dialogue: Dialogue) {
     dialogueQueue.add(dialogue)
+    this.inDialogue = true
 }

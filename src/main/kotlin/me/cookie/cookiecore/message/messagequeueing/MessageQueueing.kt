@@ -1,6 +1,7 @@
 package me.cookie.cookiecore.message.messagequeueing
 
 import me.cookie.cookiecore.CookieCore
+import me.cookie.cookiecore.inDialogue
 import me.cookie.cookiecore.message.dialogue.Dialogue
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
@@ -74,11 +75,13 @@ class MessageQueueing {
                         dialogueMessageGarbage.clear()
                     }
                     dialogueQueue.removeAll(dialogueGarbage)
+                    dialogueGarbage.forEach { dialogue ->
+                        dialogue.playersToSend.forEach { player ->
+                            player.inDialogue = false
+                        }
+                    }
                     dialogueGarbage.clear()
                 }
-
-
-
             }
 
         }.runTaskTimer(plugin, 0, 20)

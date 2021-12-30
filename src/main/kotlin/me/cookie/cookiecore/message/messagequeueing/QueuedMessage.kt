@@ -10,7 +10,6 @@ class QueuedMessage(
     var playerToSend: Player? = null,
     val playersToSend: List<Player>? = null
 ){
-    var isSent = false
     init {
         when(receiver){
             MessageReceiver.PLAYER -> {

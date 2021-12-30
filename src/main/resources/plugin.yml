@@ -3,6 +3,8 @@ main: me.cookie.cookiecore.CookieCore
 version: 1.0
 description: Core for SemiVanilla plugins
 api-version: 1.18
+depend:
+  - ProtocolLib
 
 commands:
   skipdialogue:
