@@ -1,4 +1,4 @@
-package me.cookie.expeditions.data.sql.database
+package me.cookie.cookiecore.data
 
 class Values(vararg val values: Any) {
 }

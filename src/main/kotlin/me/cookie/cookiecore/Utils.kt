@@ -1,6 +1,6 @@
 package me.cookie.cookiecore
 
-import me.cookie.expeditions.data.sql.database.Values
+import me.cookie.cookiecore.data.Values
 import net.kyori.adventure.text.Component
 /*import net.kyori.adventure.text.minimessage.MiniMessage*/
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer

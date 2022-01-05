@@ -2,7 +2,7 @@ package me.cookie.cookiecore.data.sql
 
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import me.cookie.expeditions.data.sql.database.Values
+import me.cookie.cookiecore.data.Values
 import org.bukkit.plugin.java.JavaPlugin
 import java.sql.Connection
 import java.sql.DriverManager

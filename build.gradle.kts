@@ -17,14 +17,14 @@ repositories {
 dependencies {
     compileOnly(kotlin("stdlib"))
 
-    implementation("com.h2database:h2:2.0.202")
+    implementation("com.h2database:h2:2.0.204")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
     implementation("com.github.retrooper:packetevents:2.0-SNAPSHOT")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0")
 
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
@@ -33,7 +33,7 @@ java {
 }
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
-    destinationDirectory.set(file("/home/cookie/TestServers/sudoyou/plugins/"))
+    destinationDirectory.set(file("D:\\coding\\Test Servers\\TimeRewards\\plugins"))
 }
 
 tasks.getByName<Test>("test") {
