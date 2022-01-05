@@ -2,7 +2,7 @@ package me.cookie.cookiecore
 
 import me.cookie.expeditions.data.sql.database.Values
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.minimessage.MiniMessage
+/*import net.kyori.adventure.text.minimessage.MiniMessage*/
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.entity.Player
@@ -30,11 +30,13 @@ fun String.formatPlayerPlaceholders(player: Player): String {
     return formatted
 }
 
+/*
 fun String.formatMinimessage(): Component {
     return MiniMessage.get().parse(
         this
     )
 }
+*/
 
 // A modified handy method from spigot on stacking items in a list
 fun List<ItemStack>.compressSimilarItems(): ArrayList<ItemStack> {

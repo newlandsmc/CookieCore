@@ -12,21 +12,24 @@ repositories {
     maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
     maven { url = uri("https://hub.jeff-media.com/nexus/repository/jeff-media-public/") }
     maven { url = uri("https://jitpack.io/")}
-    maven { url = uri("https://repo.dmulloy2.net/repository/public/") }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
+    compileOnly(kotlin("stdlib"))
+
     implementation("com.h2database:h2:2.0.202")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
-    implementation("de.jeff_media:CustomBlockData:1.0.3")
-    compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
+    implementation("com.github.retrooper:packetevents:2.0-SNAPSHOT")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0")
 
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
@@ -38,6 +41,3 @@ tasks.getByName<Test>("test") {
 }
 
 
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
-}
