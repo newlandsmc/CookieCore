@@ -2,13 +2,18 @@ package me.cookie.cookiecore
 
 import me.cookie.cookiecore.data.Values
 import net.kyori.adventure.text.Component
-/*import net.kyori.adventure.text.minimessage.MiniMessage*/
+import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
+import org.bukkit.configuration.InvalidConfigurationException
+import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
+import java.io.File
+import java.io.IOException
 import java.util.*
+
 
 private val plugin = JavaPlugin.getPlugin(CookieCore::class.java)
 
@@ -30,13 +35,13 @@ fun String.formatPlayerPlaceholders(player: Player): String {
     return formatted
 }
 
-/*
+
 fun String.formatMinimessage(): Component {
     return MiniMessage.get().parse(
         this
     )
 }
-*/
+
 
 // A modified handy method from spigot on stacking items in a list
 fun List<ItemStack>.compressSimilarItems(): ArrayList<ItemStack> {
@@ -61,23 +66,7 @@ fun List<ItemStack>.compressSimilarItems(): ArrayList<ItemStack> {
         }
     }
     return sorted
-
-    /*val itemsCopy: MutableList<ItemStack> = this.toMutableList()
-    itemsCopy.removeIf{ obj: ItemStack? -> obj == null}
-    for (i in itemsCopy.indices) {
-        for (j in i + 1 until itemsCopy.size) {
-            if (itemsCopy[i].isSimilar(itemsCopy[j]) && itemsCopy[i].amount + itemsCopy[j]
-                    .amount <= itemsCopy[j].maxStackSize
-            ) {
-                itemsCopy[i].amount = itemsCopy[i].amount + itemsCopy[j].amount
-                itemsCopy[j] = ItemStack(Material.AIR) // Set to air as no nulls allowed
-            }
-        }
-    }
-    itemsCopy.removeIf{ obj: ItemStack -> obj.type == Material.AIR} // Clear all the airs
-    return itemsCopy*/
 }
-
 // Create player in database
 fun Player.initInDialogue(){
     val playerUUID = plugin.playerSettings.getRowsWhere(
@@ -95,7 +84,6 @@ fun Player.initInDialogue(){
     }
 }
 
-// Last logoff stuff
 var Player.inDialogue: Boolean
     get() {
         return plugin.playerSettings.getRowsWhere(
@@ -113,3 +101,21 @@ var Player.inDialogue: Boolean
             Values(value),
         )
     }
+
+fun JavaPlugin.getCustomConfig(configName: String): YamlConfiguration{
+    val customConfigFile = File(this.dataFolder, configName)
+    if (!customConfigFile.exists()) {
+        customConfigFile.parentFile.mkdirs()
+        saveResource(configName, false)
+    }
+
+    val customConfig = YamlConfiguration()
+    try {
+        customConfig.load(customConfigFile)
+    } catch (e: IOException) {
+        e.printStackTrace()
+    } catch (e: InvalidConfigurationException) {
+        e.printStackTrace()
+    }
+    return customConfig
+}

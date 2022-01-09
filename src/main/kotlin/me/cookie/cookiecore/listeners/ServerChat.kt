@@ -1,12 +1,14 @@
 package me.cookie.cookiecore.listeners
 
-/*import com.github.retrooper.packetevents.event.PacketListenerAbstract
+import com.github.retrooper.packetevents.event.PacketListenerAbstract
 import com.github.retrooper.packetevents.event.PacketListenerPriority
 import com.github.retrooper.packetevents.event.impl.PacketSendEvent
 import com.github.retrooper.packetevents.protocol.packettype.PacketType
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatMessage
 import me.cookie.cookiecore.CookieCore
 import me.cookie.cookiecore.inDialogue
+import net.kyori.adventure.text.minimessage.MiniMessage
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -15,35 +17,40 @@ class ServerChat: PacketListenerAbstract(PacketListenerPriority.NORMAL) {
 
     override fun onPacketSend(event: PacketSendEvent) {
         if(event.packetType != PacketType.Play.Server.CHAT_MESSAGE) return
-        event.isCancelled = true
         if(event.player !is Player) return
 
         val player = event.player as Player
         val packet = WrapperPlayServerChatMessage(event)
-        println(packet.chatComponentJson)
         if(player.inDialogue){ // Mute chat if player is in dialogue
-            // event.isCancelled = true
             if(packet.position == WrapperPlayServerChatMessage.ChatPosition.SYSTEM_MESSAGE &&
                 packet.chatComponentJson.contains("[DIALOGUE]")){ // Check if message is part of dialogue
-                var formattedMessage = message.toJsonString()
-                formattedMessage = formattedMessage
-                    .replace("{\"extra\":[{\"extra\":[{\"text\":", "[\"\", ")
-                    .replace("],\"text\":\"\"}],\"text\":\"[DIALOGUE]\"}", "")
 
-                packet.chatComponentJson = formattedMessage
-                println("NEW: $formattedMessage")
-               // player.sendMessage(GsonComponentSerializer.gson().deserialize(formattedMessage))
+                var formattedMessage = packet.chatComponentJson
+                formattedMessage = formattedMessage
+                    .replace("{\"extra\":[{\"text\":\"", "")
+                    .replace("\"}],\"text\":\"[DIALOGUE]\"}", "")
+
+
+
+                packet.chatComponentJson = GsonComponentSerializer.gson().serialize(
+                    MiniMessage.get().parse(
+                        plugin.joinHandler!!.config.getString(formattedMessage)!!
+                    )
+                )
+                return
             }
+            event.isCancelled = true
             return
         }
 
     }
 
-}*/
+}
 
 // Protocol lib verison, doesnt work.
 
-/*init {
+/*
+init {
     plugin.protocolManager.addPacketListener(
         object: PacketAdapter(
             plugin, ListenerPriority.NORMAL,
@@ -79,4 +86,5 @@ class ServerChat: PacketListenerAbstract(PacketListenerPriority.NORMAL) {
             }
         }
     )
-}*/
+}
+*/

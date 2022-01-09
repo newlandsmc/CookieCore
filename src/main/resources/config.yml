@@ -5,3 +5,4 @@
 # Please use MiniMessage for color and other formatting
 no-permission: "<red>(playerName), you have no permission to execute this command!"
 invalid-usage: "<red>Incorrect command usage."
+log-database: false

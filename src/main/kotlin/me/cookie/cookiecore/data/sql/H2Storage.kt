@@ -20,8 +20,8 @@ class H2Storage(private val plugin: JavaPlugin, val fileName: String) {
         launch {
             var sqlString = "CREATE TABLE IF NOT EXISTS $name "
             var valuesString = "("
-            for((i, column) in columns.withIndex()){
-                if(i+1 == columns.size){
+            for ((i, column) in columns.withIndex()) {
+                if (i + 1 == columns.size) {
                     valuesString += "$column)"
                     break
                 }
@@ -32,10 +32,10 @@ class H2Storage(private val plugin: JavaPlugin, val fileName: String) {
 
             val preparedStatement = connection!!.prepareStatement(sqlString)
 
-            try{
+            try {
                 preparedStatement.execute()
-                logger.info("Successfully initialized table $name with values $valuesString")
-            }catch (ex: SQLException){
+                dLog("Successfully initialized table $name with values $valuesString")
+            } catch (ex: SQLException) {
                 ex.printStackTrace()
             }
         }
@@ -49,32 +49,32 @@ class H2Storage(private val plugin: JavaPlugin, val fileName: String) {
         launch {
             var values = ""
             var sqlColumns = "("
-            for(i in 1..columns.size){
-                if(i == columns.size){
-                    sqlColumns += columns[i-1]
+            for (i in 1..columns.size) {
+                if (i == columns.size) {
+                    sqlColumns += columns[i - 1]
                     continue
                 }
-                sqlColumns += "${columns[i-1]},"
+                sqlColumns += "${columns[i - 1]},"
             }
             sqlColumns += ")"
-            for(i in 1..data.size){
+            for (i in 1..data.size) {
                 values += "("
-                for(y in 1..data[i-1].values.size){
-                    if(y == data[i-1].values.size){
-                        values += if(data[i-1].values[y-1] is String){
-                            "'${data[i-1].values[y-1]}'"
-                        }else{
-                            "${data[i-1].values[y-1]}"
+                for (y in 1..data[i - 1].values.size) {
+                    if (y == data[i - 1].values.size) {
+                        values += if (data[i - 1].values[y - 1] is String) {
+                            "'${data[i - 1].values[y - 1]}'"
+                        } else {
+                            "${data[i - 1].values[y - 1]}"
                         }
                         continue
                     }
-                    values += if(data[i-1].values[y-1] is String){
-                        "'${data[i-1].values[y-1]}',"
-                    }else{
-                        "${data[i-1].values[y-1]},"
+                    values += if (data[i - 1].values[y - 1] is String) {
+                        "'${data[i - 1].values[y - 1]}',"
+                    } else {
+                        "${data[i - 1].values[y - 1]},"
                     }
                 }
-                if(i == data.size){
+                if (i == data.size) {
                     values += ")"
                     continue
                 }
@@ -83,10 +83,10 @@ class H2Storage(private val plugin: JavaPlugin, val fileName: String) {
 
             val preparedStatement = connection!!.prepareStatement("INSERT INTO $table $sqlColumns VALUES $values;")
 
-            try{
+            try {
                 preparedStatement.executeUpdate()
-                logger.info("Successfully inserted $values into $table")
-            }catch (ex: SQLException){
+                dLog("Successfully inserted $values into $table")
+            } catch (ex: SQLException) {
                 ex.printStackTrace()
             }
         }
@@ -122,7 +122,7 @@ class H2Storage(private val plugin: JavaPlugin, val fileName: String) {
             val preparedStatement = connection!!.prepareStatement(sqlString)
             try{
                 preparedStatement.executeUpdate()
-                logger.info("Successfully updated $columns to $valuesString where $where")
+                dLog("Successfully updated $columns to $valuesString where $where")
             }catch (ex: SQLException){
                 ex.printStackTrace()
             }
@@ -196,17 +196,17 @@ class H2Storage(private val plugin: JavaPlugin, val fileName: String) {
             if(connection!!.isClosed) {
                 try{
                     connection = createConnection()
-                    logger.info("Connected to $fileName!")
+                    dLog("Connected to $fileName!")
                 }catch (ex: SQLException){
                     ex.printStackTrace()
                 }
                 return
             }
-            logger.info("Is already connected to $fileName!")
+            dLog("Is already connected to $fileName!")
         }else{
             try{
                 connection = createConnection()
-                logger.info("Connected to $fileName!")
+                dLog("Connected to $fileName!")
             }catch (ex: SQLException){
                 ex.printStackTrace()
             }
@@ -221,14 +221,19 @@ class H2Storage(private val plugin: JavaPlugin, val fileName: String) {
     }
     fun disconnect() {
         if (connection == null){
-            logger.info("No connection to disconnect!")
+            dLog("No connection to disconnect!")
             return
         }
         if(connection!!.isClosed) {
-            logger.info("No connection to disconnect!")
+            dLog("No connection to disconnect!")
             return
         }
-        logger.info("Closed connection")
+        dLog("Closed connection")
         connection!!.close()
+    }
+    private fun dLog(message: String){
+        if(plugin.config.getBoolean("log-database")){
+            logger.info(message)
+        }
     }
 }

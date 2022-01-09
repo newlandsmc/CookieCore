@@ -76,6 +76,7 @@ class MessageQueueing {
                     }
                     dialogueQueue.removeAll(dialogueGarbage)
                     dialogueGarbage.forEach { dialogue ->
+                        dialogue.playerToSend.inDialogue = false
                         dialogue.playersToSend.forEach { player ->
                             player.inDialogue = false
                         }
