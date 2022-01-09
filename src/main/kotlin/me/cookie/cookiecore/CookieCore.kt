@@ -18,8 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin
 class CookieCore: JavaPlugin() {
     lateinit var playerSettings: H2Storage
 
-    var expeditions: JavaPlugin? = null
-    var joinHandler: JavaPlugin? = null
+    private var expeditions: JavaPlugin? = null
+    private var joinHandler: JavaPlugin? = null
 
 
     override fun onLoad() {
@@ -44,7 +44,7 @@ class CookieCore: JavaPlugin() {
 
 
 
-        getCommand("skipdialogue")!!.setExecutor(SkipDialogue())
+        getCommand("skipdialogue")!!.setExecutor(SkipDialogue(this))
 
         playerSettings.connect()
         playerSettings.initTable(
@@ -52,13 +52,13 @@ class CookieCore: JavaPlugin() {
             listOf("UUID varchar(255)", "INDIALOGUE bool")
         )
 
-        PacketEvents.getAPI().eventManager.registerListener(ServerChat()) // Server chat listener
+        PacketEvents.getAPI().eventManager.registerListener(ServerChat(joinHandler!!)) // Server chat listener
         server.pluginManager.registerEvents(MenuHandler(), this)
         server.pluginManager.registerEvents(PlayerJoin(), this)
         server.pluginManager.registerEvents(PlayerQuit(), this)
 
         PacketEvents.getAPI().init()
-        MessageQueueing().startRunnable()
+        MessageQueueing(this).startRunnable()
         saveDefaultConfig()
     }
 

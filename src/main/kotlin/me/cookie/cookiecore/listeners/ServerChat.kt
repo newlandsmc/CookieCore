@@ -5,16 +5,13 @@ import com.github.retrooper.packetevents.event.PacketListenerPriority
 import com.github.retrooper.packetevents.event.impl.PacketSendEvent
 import com.github.retrooper.packetevents.protocol.packettype.PacketType
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatMessage
-import me.cookie.cookiecore.CookieCore
 import me.cookie.cookiecore.inDialogue
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 
-class ServerChat: PacketListenerAbstract(PacketListenerPriority.NORMAL) {
-    val plugin = JavaPlugin.getPlugin(CookieCore::class.java)
-
+class ServerChat(private val joinHandler: JavaPlugin): PacketListenerAbstract(PacketListenerPriority.NORMAL) {
     override fun onPacketSend(event: PacketSendEvent) {
         if(event.packetType != PacketType.Play.Server.CHAT_MESSAGE) return
         if(event.player !is Player) return
@@ -34,7 +31,7 @@ class ServerChat: PacketListenerAbstract(PacketListenerPriority.NORMAL) {
 
                 packet.chatComponentJson = GsonComponentSerializer.gson().serialize(
                     MiniMessage.get().parse(
-                        plugin.joinHandler!!.config.getString(formattedMessage)!!
+                        joinHandler.config.getString(formattedMessage)!!
                     )
                 )
                 return

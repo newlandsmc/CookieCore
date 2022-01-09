@@ -1,6 +1,5 @@
 package me.cookie.cookiecore.message.messagequeueing
 
-import me.cookie.cookiecore.CookieCore
 import me.cookie.cookiecore.inDialogue
 import me.cookie.cookiecore.message.dialogue.Dialogue
 import net.kyori.adventure.text.Component
@@ -12,9 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable
 private val messageQueue = mutableListOf<QueuedMessage>()
 val dialogueQueue = mutableListOf<Dialogue>()
 
-class MessageQueueing {
-    private val plugin = JavaPlugin.getPlugin(CookieCore::class.java)
-
+class MessageQueueing(private val plugin: JavaPlugin) {
     private val messageGarbage = mutableSetOf<QueuedMessage>()
     private val dialogueMessageGarbage = mutableSetOf<QueuedMessage>()
     private val dialogueGarbage = mutableSetOf<Dialogue>()
