@@ -13,6 +13,6 @@ commands:
     usage: /skipdialogue
 
 permissions:
-  semicore.dialogue.skip:
+  cookiecore.dialogue.skip:
     description: Permission to allow of skipping dialogue (personal dialogue).
     default: op
