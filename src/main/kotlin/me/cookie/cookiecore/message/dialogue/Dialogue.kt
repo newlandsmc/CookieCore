@@ -6,7 +6,6 @@ import me.cookie.cookiecore.message.messagequeueing.QueuedMessage
 import me.cookie.cookiecore.message.messagequeueing.dialogueQueue
 import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
-import java.util.*
 
 class Dialogue(
     var messages: MutableList<QueuedMessage> = mutableListOf(),

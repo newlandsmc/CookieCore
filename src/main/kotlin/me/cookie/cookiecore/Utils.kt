@@ -35,13 +35,11 @@ fun String.formatPlayerPlaceholders(player: Player): String {
     return formatted
 }
 
-
 fun String.formatMinimessage(): Component {
     return MiniMessage.get().parse(
         this
     )
 }
-
 
 // A modified handy method from spigot on stacking items in a list
 fun List<ItemStack>.compressSimilarItems(): ArrayList<ItemStack> {

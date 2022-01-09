@@ -8,7 +8,7 @@ import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
 
-class H2Storage(private val plugin: JavaPlugin, val fileName: String) {
+class H2Storage(private val plugin: JavaPlugin, private val fileName: String) {
     private val logger = plugin.logger
 
     private var connection: Connection? = null

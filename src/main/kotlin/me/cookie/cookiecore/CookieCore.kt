@@ -42,20 +42,14 @@ class CookieCore: JavaPlugin() {
             logger.warning("JoinHandler not found..")
         }
 
-
-
-        getCommand("skipdialogue")!!.setExecutor(SkipDialogue(this))
-
         playerSettings.connect()
         playerSettings.initTable(
             "playerSettings",
             listOf("UUID varchar(255)", "INDIALOGUE bool")
         )
 
-        PacketEvents.getAPI().eventManager.registerListener(ServerChat(joinHandler!!)) // Server chat listener
-        server.pluginManager.registerEvents(MenuHandler(), this)
-        server.pluginManager.registerEvents(PlayerJoin(), this)
-        server.pluginManager.registerEvents(PlayerQuit(), this)
+        registerCommands()
+        registerEvents()
 
         PacketEvents.getAPI().init()
         MessageQueueing(this).startRunnable()
@@ -64,6 +58,17 @@ class CookieCore: JavaPlugin() {
 
     override fun onDisable() {
         PacketEvents.getAPI().terminate()
+    }
+
+    private fun registerCommands(){
+        getCommand("skipdialogue")!!.setExecutor(SkipDialogue(this))
+    }
+
+    private fun registerEvents(){
+        PacketEvents.getAPI().eventManager.registerListener(ServerChat(joinHandler!!)) // Server chat listener
+        server.pluginManager.registerEvents(MenuHandler(), this)
+        server.pluginManager.registerEvents(PlayerJoin(), this)
+        server.pluginManager.registerEvents(PlayerQuit(), this)
     }
 }
 

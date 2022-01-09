@@ -5,6 +5,8 @@ import com.github.retrooper.packetevents.event.PacketListenerPriority
 import com.github.retrooper.packetevents.event.impl.PacketSendEvent
 import com.github.retrooper.packetevents.protocol.packettype.PacketType
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatMessage
+import me.cookie.cookiecore.formatMinimessage
+import me.cookie.cookiecore.formatPlayerPlaceholders
 import me.cookie.cookiecore.inDialogue
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
@@ -18,6 +20,19 @@ class ServerChat(private val joinHandler: JavaPlugin): PacketListenerAbstract(Pa
 
         val player = event.player as Player
         val packet = WrapperPlayServerChatMessage(event)
+
+        if(!player.hasPlayedBefore()){
+            if(packet.chatComponentJson.contains( // Disable first-join message for joining player
+                    GsonComponentSerializer.gson().serialize(
+                        joinHandler.config.getString("first-join")!!
+                            .formatPlayerPlaceholders(player)
+                            .formatMinimessage()
+                    )
+                )) {
+                event.isCancelled = true
+            }
+        }
+
         if(player.inDialogue){ // Mute chat if player is in dialogue
             if(packet.position == WrapperPlayServerChatMessage.ChatPosition.SYSTEM_MESSAGE &&
                 packet.chatComponentJson.contains("[DIALOGUE]")){ // Check if message is part of dialogue
@@ -43,45 +58,3 @@ class ServerChat(private val joinHandler: JavaPlugin): PacketListenerAbstract(Pa
     }
 
 }
-
-// Protocol lib verison, doesnt work.
-
-/*
-init {
-    plugin.protocolManager.addPacketListener(
-        object: PacketAdapter(
-            plugin, ListenerPriority.NORMAL,
-            PacketType.Play.Server.CHAT
-        ){
-            override fun onPacketSending(event: PacketEvent?) {
-                if(event == null){
-                    println("null event")
-                    return
-                }
-                if(event.packetType != PacketType.Play.Server.CHAT){
-                    println("somehow not chat packet")
-                    return
-                }
-                val packet = event.packet
-                val player = event.player
-                if(packet.chatComponents.read(0) == null) {
-                    println("null")
-                    return
-                }
-                val message = GsonComponentSerializer.gson().deserialize(packet.chatComponents.read(0).json)
-                println(packet.chatComponents.read(0).json)
-                if(player.inDialogue){ // Mute chat if player is in dialogue
-                    event.isCancelled = true
-                    if(packet.bytes.readSafely(0) == 1.toByte() &&
-                        message.toPlainString().startsWith("[DIALOGUE]")){ // Check if message is part of dialogue
-                        val formattedMessage = message.toJsonString()
-                        formattedMessage.replace("[DIALOGUE]", "")
-                        player.sendMessage(GsonComponentSerializer.gson().deserialize(formattedMessage))
-                    }
-                    return
-                }
-            }
-        }
-    )
-}
-*/
