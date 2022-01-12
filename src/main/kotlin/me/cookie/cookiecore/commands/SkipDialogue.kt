@@ -41,6 +41,7 @@ class SkipDialogue(private val plugin: JavaPlugin): CommandExecutor {
                     dialogue.messages.forEach { message ->
                         loopPlayer.sendMessage(message.message)
                     }
+                    dialogue.toRun.run()
                     garbage.add(dialogue)
                     return@dialogueLoop
                 }

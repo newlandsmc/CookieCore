@@ -9,11 +9,13 @@ import org.bukkit.entity.Player
 
 class Dialogue(
     var messages: MutableList<QueuedMessage> = mutableListOf(),
-    receiver: MessageReceiver = MessageReceiver.GLOBAL,
+    private val receiver: MessageReceiver = MessageReceiver.GLOBAL,
     var whenToSend: Long =  System.currentTimeMillis(),
     var playerToSend: Player = messages[0].playerToSend!!,
-    var playersToSend: List<Player> = listOf()
+    var playersToSend: List<Player> = listOf(),
+    val toRun: Runnable = Runnable { }
 ) {
+
     init {
         for(message in messages){
             val component = Component.text("[DIALOGUE]").append(message.message)

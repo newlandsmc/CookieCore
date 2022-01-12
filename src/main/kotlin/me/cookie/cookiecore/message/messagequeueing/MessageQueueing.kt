@@ -48,6 +48,13 @@ class MessageQueueing(private val plugin: JavaPlugin) {
                     dialogueQueue.forEach dialogueLoop@ { dialogue ->
                         if(dialogue.messages.isEmpty()){
                             dialogueGarbage.add(dialogue)
+
+                            dialogue.playerToSend.inDialogue = false
+                            dialogue.toRun.run()
+                            dialogue.playersToSend.forEach { player ->
+                                player.inDialogue = false
+                            }
+
                             return@dialogueLoop
                         }
                         dialogue.messages.forEach dialogueMessageLoop@ { message ->
@@ -72,12 +79,6 @@ class MessageQueueing(private val plugin: JavaPlugin) {
                         dialogueMessageGarbage.clear()
                     }
                     dialogueQueue.removeAll(dialogueGarbage)
-                    dialogueGarbage.forEach { dialogue ->
-                        dialogue.playerToSend.inDialogue = false
-                        dialogue.playersToSend.forEach { player ->
-                            player.inDialogue = false
-                        }
-                    }
                     dialogueGarbage.clear()
                 }
             }
