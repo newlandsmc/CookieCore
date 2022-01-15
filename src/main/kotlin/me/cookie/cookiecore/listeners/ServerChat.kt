@@ -42,8 +42,6 @@ class ServerChat(private val joinHandler: JavaPlugin): PacketListenerAbstract(Pa
                     .replace("{\"extra\":[{\"text\":\"", "")
                     .replace("\"}],\"text\":\"[DIALOGUE]\"}", "")
 
-
-
                 packet.chatComponentJson = GsonComponentSerializer.gson().serialize(
                     MiniMessage.get().parse(
                         joinHandler.config.getString(formattedMessage)!!

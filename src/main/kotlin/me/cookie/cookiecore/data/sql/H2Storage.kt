@@ -2,12 +2,13 @@ package me.cookie.cookiecore.data.sql
 
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import me.cookie.cookiecore.CookieCore
 import me.cookie.cookiecore.data.Values
 import org.bukkit.plugin.java.JavaPlugin
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
-
+private val cookieCore = JavaPlugin.getPlugin(CookieCore::class.java)
 class H2Storage(private val plugin: JavaPlugin, private val fileName: String) {
     private val logger = plugin.logger
 
@@ -232,7 +233,7 @@ class H2Storage(private val plugin: JavaPlugin, private val fileName: String) {
         connection!!.close()
     }
     private fun dLog(message: String){
-        if(plugin.config.getBoolean("log-database")){
+        if(cookieCore.config.getBoolean("log-database")){
             logger.info(message)
         }
     }
