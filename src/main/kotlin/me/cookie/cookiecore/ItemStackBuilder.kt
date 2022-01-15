@@ -32,6 +32,8 @@ class ItemStackBuilder(private val type: Material) {
             itemMeta.lore(itemLore)
         }
 
+        itemStack.itemMeta = itemMeta
+
         return itemStack
     }
 }
