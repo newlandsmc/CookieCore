@@ -27,6 +27,7 @@ class CookieCore: JavaPlugin() {
         PacketEvents.getAPI().load()
         WrapperPlayServerChatMessage.HANDLE_JSON = false
         PacketEvents.getAPI().settings.debug(true)
+        PacketEvents.getAPI().settings.checkForUpdates(false)
     }
 
     override fun onEnable() {
