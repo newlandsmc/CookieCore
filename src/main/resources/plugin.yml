@@ -11,6 +11,8 @@ commands:
     permission: cookiecore.dialogue.skip
     description: Command that skips current dialogue (personal dialogue).
     usage: /skipdialogue
+    aliases:
+      - skip
 
 permissions:
   cookiecore.dialogue.skip:

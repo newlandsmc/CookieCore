@@ -32,13 +32,16 @@ class CookieCore: JavaPlugin() {
     override fun onEnable() {
         playerSettings = H2Storage(this, "playerSettings")
 
-        expeditions = Bukkit.getPluginManager().getPlugin("Expeditions") as JavaPlugin
-        joinHandler = Bukkit.getPluginManager().getPlugin("JoinHandler") as JavaPlugin
+        if(Bukkit.getPluginManager().getPlugin("Expeditions") != null){
+            expeditions = Bukkit.getPluginManager().getPlugin("Expeditions") as JavaPlugin
 
-        if(expeditions == null){
+        }else{
             logger.warning("Expeditions not found..")
         }
-        if(joinHandler == null){
+
+        if(Bukkit.getPluginManager().getPlugin("JoinHandler") != null){
+            joinHandler = Bukkit.getPluginManager().getPlugin("JoinHandler") as JavaPlugin
+        }else{
             logger.warning("JoinHandler not found..")
         }
 

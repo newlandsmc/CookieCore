@@ -5,8 +5,6 @@ import com.github.retrooper.packetevents.event.PacketListenerPriority
 import com.github.retrooper.packetevents.event.impl.PacketSendEvent
 import com.github.retrooper.packetevents.protocol.packettype.PacketType
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatMessage
-import me.cookie.cookiecore.formatMinimessage
-import me.cookie.cookiecore.formatPlayerPlaceholders
 import me.cookie.cookiecore.inDialogue
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
@@ -20,18 +18,6 @@ class ServerChat(private val joinHandler: JavaPlugin): PacketListenerAbstract(Pa
 
         val player = event.player as Player
         val packet = WrapperPlayServerChatMessage(event)
-
-        if(!player.hasPlayedBefore()){
-            if(packet.chatComponentJson.contains( // Disable first-join message for joining player
-                    GsonComponentSerializer.gson().serialize(
-                        joinHandler.config.getString("first-join")!!
-                            .formatPlayerPlaceholders(player)
-                            .formatMinimessage()
-                    )
-                )) {
-                event.isCancelled = true
-            }
-        }
 
         if(player.inDialogue){ // Mute chat if player is in dialogue
             if(packet.position == WrapperPlayServerChatMessage.ChatPosition.SYSTEM_MESSAGE &&
