@@ -49,12 +49,15 @@ class MessageQueueing(private val plugin: JavaPlugin) {
                         if(dialogue.messages.isEmpty()){
                             dialogueGarbage.add(dialogue)
 
-                            dialogue.playerToSend.inDialogue = false
-                            dialogue.toRun.run()
-                            dialogue.playersToSend.forEach { player ->
-                                player.inDialogue = false
+                            if(dialogue.muteForAfter > 0){
+                                object: BukkitRunnable(){
+                                    override fun run() {
+                                        dialogue.cleanup()
+                                    }
+                                }.runTaskLater(plugin, (dialogue.muteForAfter*20).toLong())
+                            }else{
+                                dialogue.cleanup()
                             }
-
                             return@dialogueLoop
                         }
                         dialogue.messages.forEach dialogueMessageLoop@ { message ->
@@ -84,6 +87,14 @@ class MessageQueueing(private val plugin: JavaPlugin) {
             }
 
         }.runTaskTimer(plugin, 0, 20)
+    }
+
+    fun Dialogue.cleanup(){
+        this.playerToSend.inDialogue = false
+        this.playersToSend.forEach { player ->
+            player.inDialogue = false
+        }
+        this.toRun.run()
     }
 }
 

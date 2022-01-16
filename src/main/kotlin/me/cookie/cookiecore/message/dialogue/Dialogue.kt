@@ -13,7 +13,8 @@ class Dialogue(
     var whenToSend: Long =  System.currentTimeMillis(),
     var playerToSend: Player = messages[0].playerToSend!!,
     var playersToSend: List<Player> = listOf(),
-    val toRun: Runnable = Runnable { }
+    val muteForAfter: Int = 0,
+    val toRun: Runnable = Runnable { },
 ) {
 
     init {
