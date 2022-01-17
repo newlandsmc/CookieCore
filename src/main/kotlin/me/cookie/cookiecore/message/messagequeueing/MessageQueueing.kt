@@ -58,6 +58,7 @@ class MessageQueueing(private val plugin: JavaPlugin) {
                             }else{
                                 dialogue.cleanup()
                             }
+
                             return@dialogueLoop
                         }
                         dialogue.messages.forEach dialogueMessageLoop@ { message ->

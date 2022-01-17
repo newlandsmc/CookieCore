@@ -6,10 +6,7 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCh
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder
 import me.cookie.cookiecore.commands.SkipDialogue
 import me.cookie.cookiecore.data.sql.H2Storage
-import me.cookie.cookiecore.listeners.MenuHandler
-import me.cookie.cookiecore.listeners.PlayerJoin
-import me.cookie.cookiecore.listeners.PlayerQuit
-import me.cookie.cookiecore.listeners.ServerChat
+import me.cookie.cookiecore.listeners.*
 import me.cookie.cookiecore.message.messagequeueing.MessageQueueing
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -72,7 +69,8 @@ class CookieCore: JavaPlugin() {
         PacketEvents.getAPI().eventManager.registerListener(ServerChat(joinHandler!!)) // Server chat listener
         server.pluginManager.registerEvents(MenuHandler(), this)
         server.pluginManager.registerEvents(PlayerJoin(), this)
-        server.pluginManager.registerEvents(PlayerQuit(), this)
+        server.pluginManager.registerEvents(PlayerQuit(this), this)
+        server.pluginManager.registerEvents(AsyncPlayerChat(), this)
     }
 }
 

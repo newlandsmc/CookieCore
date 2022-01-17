@@ -53,7 +53,7 @@ class SkipDialogue(private val plugin: JavaPlugin): CommandExecutor {
             override fun run() {
                 player.inDialogue = false
             }
-        }.runTaskLaterAsynchronously(plugin, 20)
+        }.runTaskLaterAsynchronously(plugin, 5)
 
         return true
     }
