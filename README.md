@@ -10,9 +10,9 @@ If chunks of code are shared across plugins, theyll be put here. Also includes s
 
 ## Commands & Permissions
 
-|    Commands   |   Permissions | Description |
-| ------------- | ------------- | ----------- |
-| /skipdialogue | cookiecore.dialogue.skip | A command to skip any currently running dialogue |
+|    Commands   |   Permissions | Description | Aliases |
+| ------------- | ------------- | ----------- | ----------- |
+| /skipdialogue | cookiecore.dialogue.skip | A command to skip any currently running dialogue | /skip |
 
 ## Notes
 
