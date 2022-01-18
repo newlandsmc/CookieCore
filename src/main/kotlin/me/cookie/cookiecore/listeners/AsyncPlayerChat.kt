@@ -9,6 +9,7 @@ class AsyncPlayerChat : Listener {
     @EventHandler fun onAsyncPlayerChat(chat: AsyncChatEvent){
         if(chat.player.inDialogue){
             chat.isCancelled = true
+            return
         }
     }
 }

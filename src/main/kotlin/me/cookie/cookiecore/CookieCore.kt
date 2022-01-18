@@ -1,9 +1,9 @@
 package me.cookie.cookiecore
 
 
-import com.github.retrooper.packetevents.PacketEvents
+/*import com.github.retrooper.packetevents.PacketEvents
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatMessage
-import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder
+import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder*/
 import me.cookie.cookiecore.commands.SkipDialogue
 import me.cookie.cookiecore.data.sql.H2Storage
 import me.cookie.cookiecore.listeners.*
@@ -20,11 +20,13 @@ class CookieCore: JavaPlugin() {
 
 
     override fun onLoad() {
-        PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this))
-        PacketEvents.getAPI().load()
-        WrapperPlayServerChatMessage.HANDLE_JSON = false
-        PacketEvents.getAPI().settings.debug(true)
-        PacketEvents.getAPI().settings.checkForUpdates(false)
+        // PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this))
+        // PacketEvents.getAPI().load()
+        // WrapperPlayServerChatMessage.HANDLE_JSON = false
+        // PacketEvents.getAPI().settings.debug(true)
+        // PacketEvents.getAPI().settings.checkForUpdates(false)
+
+
     }
 
     override fun onEnable() {
@@ -52,13 +54,13 @@ class CookieCore: JavaPlugin() {
         registerCommands()
         registerEvents()
 
-        PacketEvents.getAPI().init()
+        // PacketEvents.getAPI().init()
         MessageQueueing(this).startRunnable()
         saveDefaultConfig()
     }
 
     override fun onDisable() {
-        PacketEvents.getAPI().terminate()
+        // PacketEvents.getAPI().terminate()
     }
 
     private fun registerCommands(){
@@ -66,7 +68,8 @@ class CookieCore: JavaPlugin() {
     }
 
     private fun registerEvents(){
-        PacketEvents.getAPI().eventManager.registerListener(ServerChat(joinHandler!!)) // Server chat listener
+        // PacketEvents.getAPI().eventManager.registerListener(ServerChat(joinHandler!!)) // Server chat listener
+        joinHandler?.let { ProtocolLibServerChat(this, it) } // Protocol lib version of the server chat listener
         server.pluginManager.registerEvents(MenuHandler(), this)
         server.pluginManager.registerEvents(PlayerJoin(), this)
         server.pluginManager.registerEvents(PlayerQuit(this), this)

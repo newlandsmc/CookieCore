@@ -117,3 +117,4 @@ fun JavaPlugin.getCustomConfig(configName: String): YamlConfiguration{
     }
     return customConfig
 }
+

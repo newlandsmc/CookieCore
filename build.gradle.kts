@@ -12,6 +12,7 @@ repositories {
     maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
     maven { url = uri("https://hub.jeff-media.com/nexus/repository/jeff-media-public/") }
     maven { url = uri("https://jitpack.io/")}
+    maven { url = uri("https://repo.dmulloy2.net/repository/public/") }
 }
 
 
@@ -20,7 +21,11 @@ dependencies {
     compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
     implementation("com.h2database:h2:2.0.204")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
-    implementation("com.github.retrooper:packetevents:0056ada")
+    implementation("net.kyori:adventure-text-serializer-bungeecord:4.0.1")
+    //implementation("com.github.retrooper:packetevents:0056ada")
+
+
+    compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
 
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
 }

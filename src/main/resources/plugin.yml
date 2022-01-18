@@ -3,6 +3,9 @@ main: me.cookie.cookiecore.CookieCore
 version: 1.0
 description: Core for SemiVanilla plugins
 api-version: 1.18
+depend:
+  - ProtocolLib
+
 libraries:
   - 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
   - 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'

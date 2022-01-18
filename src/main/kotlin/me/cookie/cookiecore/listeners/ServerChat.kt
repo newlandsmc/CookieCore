@@ -1,3 +1,4 @@
+/*
 package me.cookie.cookiecore.listeners
 
 import com.github.retrooper.packetevents.event.PacketListenerAbstract
@@ -41,4 +42,4 @@ class ServerChat(private val joinHandler: JavaPlugin): PacketListenerAbstract(Pa
 
     }
 
-}
+}*/
