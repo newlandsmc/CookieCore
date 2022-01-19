@@ -26,7 +26,7 @@ class ProtocolLibServerChat(plugin: JavaPlugin, joinHandler: JavaPlugin) {
 
                         val packet = event.packet
                         val chatType = packet.chatTypes.read(0)
-                        
+
                         val modifier1 = packet.modifier.read(1)
                         val chatComponents = packet.chatComponents.read(0)
 
