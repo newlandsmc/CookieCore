@@ -25,8 +25,19 @@ class ProtocolLibServerChat(plugin: JavaPlugin, joinHandler: JavaPlugin) {
                         val player = event.player as Player
 
                         val packet = event.packet
-                        val component = packet.modifier.read(1) as Component
                         val chatType = packet.chatTypes.read(0)
+                        
+                        val modifier1 = packet.modifier.read(1)
+                        val chatComponents = packet.chatComponents.read(0)
+
+                        var component: Component = Component.empty()
+
+                        if(chatComponents != null){
+                            component = GsonComponentSerializer.gson().deserialize(chatComponents.json)
+                        }
+                        if(modifier1 != null){
+                            component = modifier1 as Component
+                        }
 
                         var json = GsonComponentSerializer.gson().serialize(component)
 
