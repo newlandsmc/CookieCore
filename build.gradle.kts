@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "me.cookie"
-version = "1.0"
+version = ""
 
 repositories {
     mavenCentral()
@@ -25,7 +25,7 @@ dependencies {
     //implementation("com.github.retrooper:packetevents:0056ada")
 
 
-    compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
+    compileOnly("com.comphenix.protocol:ProtocolLib:4.8.0-SNAPSHOT")
 
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
 }
