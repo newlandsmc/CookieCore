@@ -1,6 +1,7 @@
 package me.cookie.cookiecore
 
 import me.cookie.cookiecore.data.Values
+import me.cookie.cookiecore.gui.Menu
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
@@ -118,3 +119,7 @@ fun JavaPlugin.getCustomConfig(configName: String): YamlConfiguration{
     return customConfig
 }
 
+
+fun Player.openMenu(menu: Class<out Menu>){
+    menu.getConstructor(PlayerMenuUtility::class.java).newInstance(this.playerMenuUtility).open()
+}
