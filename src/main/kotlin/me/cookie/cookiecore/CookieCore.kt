@@ -74,6 +74,7 @@ class CookieCore: JavaPlugin() {
         server.pluginManager.registerEvents(PlayerJoin(), this)
         server.pluginManager.registerEvents(PlayerQuit(this), this)
         server.pluginManager.registerEvents(AsyncPlayerChat(), this)
+        server.pluginManager.registerEvents(PlayerCommand(this), this)
     }
 }
 

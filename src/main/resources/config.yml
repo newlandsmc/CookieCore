@@ -5,4 +5,5 @@
 # Please use MiniMessage for color and other formatting
 no-permission: "<red>(playerName), you have no permission to execute this command!"
 invalid-usage: "<red>Incorrect command usage."
+skip-dialogue: "<red>Do you want to skip these messages? Use /skip to skip."
 log-database: false
