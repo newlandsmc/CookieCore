@@ -19,7 +19,7 @@ class SkipDialogue(private val plugin: JavaPlugin): CommandExecutor {
         val player = sender as Player
         if(!player.hasPermission("cookiecore.dialogue.skip")){
             player.sendMessage(
-                MiniMessage.get().parse(
+                MiniMessage.miniMessage().deserialize(
                     plugin.config.getString("no-permission")!!
                 )
             )

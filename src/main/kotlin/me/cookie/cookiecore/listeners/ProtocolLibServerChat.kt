@@ -49,7 +49,7 @@ class ProtocolLibServerChat(plugin: JavaPlugin, joinHandler: JavaPlugin) {
                                     .replace("\"}],\"text\":\"[DIALOGUE]\"}", "")
 
                                 json = GsonComponentSerializer.gson().serialize(
-                                    MiniMessage.get().parse(
+                                    MiniMessage.miniMessage().deserialize(
                                         joinHandler.config.getString(formattedMessage)!!
                                     )
                                 )
