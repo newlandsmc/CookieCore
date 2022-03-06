@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.InventoryHolder
+import org.bukkit.inventory.ItemStack
 
 abstract class Menu(
     protected var playerMenuUtility: PlayerMenuUtility
@@ -42,5 +43,11 @@ abstract class Menu(
 
     override fun getInventory(): Inventory {
         return cInventory!!
+    }
+
+    fun filler(fillerItem: ItemStack){
+        for(i in 0 until slots.size){
+            cInventory!!.setItem(i, fillerItem)
+        }
     }
 }

@@ -6,7 +6,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 
-
 class MenuHandler: Listener {
     @EventHandler fun onMenuClick(e: InventoryClickEvent) {
         val holder = e.inventory.holder

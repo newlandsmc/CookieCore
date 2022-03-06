@@ -120,13 +120,14 @@ fun JavaPlugin.getCustomConfig(configName: String): YamlConfiguration{
     return customConfig
 }
 
-
 fun Player.openMenu(menu: Class<out Menu>, vararg parameters: Any?){
     menu.getConstructor(PlayerMenuUtility::class.java).newInstance(this.playerMenuUtility, parameters).open()
 }
+
 fun Player.openMenu(menu: Class<out Menu>){
     menu.getConstructor(PlayerMenuUtility::class.java).newInstance(this.playerMenuUtility).open()
 }
+
 fun Player.openMenu(menu: Menu){
     menu.open()
 }

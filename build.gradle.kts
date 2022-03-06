@@ -19,12 +19,12 @@ repositories {
 dependencies {
     compileOnly(kotlin("stdlib", "1.6.0"))
     compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-    implementation("com.h2database:h2:2.0.204")
+    implementation("com.h2database:h2:2.1.210")
     implementation("net.kyori:adventure-text-serializer-bungeecord:4.0.1")
     //implementation("com.github.retrooper:packetevents:0056ada")
 
 
-    compileOnly("com.comphenix.protocol:ProtocolLib:4.8.0-SNAPSHOT")
+    compileOnly("com.comphenix.protocol:ProtocolLib:4.8.0")
 
     compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
 }
