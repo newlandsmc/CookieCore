@@ -48,9 +48,17 @@ class ProtocolLibServerChat(plugin: JavaPlugin, joinHandler: JavaPlugin) {
                                     .replace("{\"extra\":[{\"text\":\"", "")
                                     .replace("\"}],\"text\":\"[DIALOGUE]\"}", "")
 
+                                val configMessage = if(formattedMessage.contains("[COOKIECORE]")) {
+                                    plugin.config.getString(
+                                        formattedMessage.replace("[COOKIECORE]", "")
+                                    ) // uhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                                } else {
+                                    joinHandler.config.getString(formattedMessage)!!
+                                }
+
                                 json = GsonComponentSerializer.gson().serialize(
                                     MiniMessage.miniMessage().deserialize(
-                                        joinHandler.config.getString(formattedMessage)!!
+                                        configMessage!!
                                     )
                                 )
 
