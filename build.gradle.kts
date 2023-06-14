@@ -24,9 +24,9 @@ dependencies {
     //implementation("com.github.retrooper:packetevents:0056ada")
 
 
-    compileOnly("com.comphenix.protocol:ProtocolLib:5.0.0-SNAPSHOT")
+    compileOnly("com.comphenix.protocol:ProtocolLib:5.0.0")
 
-    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT")
 }
 
 java {
