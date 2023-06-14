@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.6.0"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     java
 }
 
@@ -41,6 +41,6 @@ tasks{
         archiveClassifier.set("")
         project.configurations.implementation.get().isCanBeResolved = true
         configurations = listOf(project.configurations.implementation.get())
-        destinationDirectory.set(file("G:\\coding\\Test Servers\\TimeRewards\\plugins"))
+        // destinationDirectory.set(file("G:\\coding\\Test Servers\\TimeRewards\\plugins"))
     }
 }
