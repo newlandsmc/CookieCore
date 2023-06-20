@@ -6,6 +6,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
+import org.apache.commons.lang3.time.DurationFormatUtils
 import org.bukkit.configuration.InvalidConfigurationException
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
@@ -37,7 +38,7 @@ fun String.formatPlayerPlaceholders(player: Player): String {
 }
 
 fun String.formatMinimessage(): Component {
-    return MiniMessage.get().parse(
+    return MiniMessage.miniMessage().deserialize(
         this
     )
 }
@@ -119,7 +120,47 @@ fun JavaPlugin.getCustomConfig(configName: String): YamlConfiguration{
     return customConfig
 }
 
+fun Player.openMenu(menu: Class<out Menu>, vararg parameters: Any?){
+    menu.getConstructor(PlayerMenuUtility::class.java).newInstance(this.playerMenuUtility, parameters).open()
+}
 
 fun Player.openMenu(menu: Class<out Menu>){
     menu.getConstructor(PlayerMenuUtility::class.java).newInstance(this.playerMenuUtility).open()
+}
+
+fun Player.openMenu(menu: Menu){
+    menu.open()
+}
+
+fun List<ItemStack>.serialize(): String {
+    var serializedItems = ""
+    this.forEach {
+        serializedItems += "${Base64.getEncoder().encodeToString(it.serializeAsBytes())},"
+    }
+    if(serializedItems.endsWith(",")){
+        serializedItems.dropLast(1)
+    }
+    return serializedItems
+}
+
+fun String.deseralizeItemStacks(): List<ItemStack> {
+    val items = mutableListOf<ItemStack>()
+
+    val encodedArray = split(",")
+    if(encodedArray.isEmpty()) return emptyList()
+
+    encodedArray.forEach {
+        if(it.isEmpty()) return@forEach
+        items.add(ItemStack.deserializeBytes(Base64.getDecoder().decode(it)))
+    }
+
+    return items
+}
+
+fun Long.formatMillis(format: String): String {
+    return DurationFormatUtils
+        .formatDuration(
+            this,
+            format
+        )
 }

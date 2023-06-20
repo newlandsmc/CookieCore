@@ -1,13 +1,16 @@
 package me.cookie.cookiecore.gui
 
 import me.cookie.cookiecore.PlayerMenuUtility
+import me.cookie.cookiecore.gui.SlotsType.DROPPER_9
+import me.cookie.cookiecore.gui.SlotsType.HOPPER_5
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
+import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.InventoryHolder
-
+import org.bukkit.inventory.ItemStack
 
 abstract class Menu(
     protected var playerMenuUtility: PlayerMenuUtility
@@ -15,7 +18,7 @@ abstract class Menu(
     protected var cInventory: Inventory? = null
     abstract val menuName: Component?
 
-    abstract val slots: Int
+    abstract val slots: SlotsType
 
     abstract fun handleClick(e: InventoryClickEvent)
 
@@ -24,12 +27,27 @@ abstract class Menu(
     abstract fun setMenuItems()
 
     fun open() {
-        cInventory = Bukkit.createInventory(this, slots, menuName!!)
+        cInventory = if(slots == HOPPER_5 || slots == DROPPER_9){
+            if(slots == HOPPER_5)
+                Bukkit.createInventory(this, InventoryType.HOPPER, menuName!!)
+            else
+                Bukkit.createInventory(this, InventoryType.DROPPER, menuName!!)
+        }else{
+            val slotNum: Int = slots.size
+            Bukkit.createInventory(this, slotNum, menuName!!)
+        }
+
         setMenuItems()
         playerMenuUtility.player.openInventory(cInventory!!)
     }
 
     override fun getInventory(): Inventory {
         return cInventory!!
+    }
+
+    fun filler(fillerItem: ItemStack){
+        for(i in 0 until slots.size){
+            cInventory!!.setItem(i, fillerItem)
+        }
     }
 }

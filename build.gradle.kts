@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.6.0"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     java
 }
 
@@ -18,16 +18,15 @@ repositories {
 
 dependencies {
     compileOnly(kotlin("stdlib", "1.6.0"))
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-    implementation("com.h2database:h2:2.0.204")
-    implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
-    implementation("net.kyori:adventure-text-serializer-bungeecord:4.0.1")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+    implementation("com.h2database:h2:2.1.212")
+    implementation("net.kyori:adventure-text-serializer-bungeecord:4.1.1")
     //implementation("com.github.retrooper:packetevents:0056ada")
 
 
-    compileOnly("com.comphenix.protocol:ProtocolLib:4.8.0-SNAPSHOT")
+    compileOnly("com.comphenix.protocol:ProtocolLib:5.0.0")
 
-    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT")
 }
 
 java {
@@ -42,6 +41,6 @@ tasks{
         archiveClassifier.set("")
         project.configurations.implementation.get().isCanBeResolved = true
         configurations = listOf(project.configurations.implementation.get())
-        destinationDirectory.set(file("D:\\coding\\Test Servers\\TimeRewards\\plugins"))
+        // destinationDirectory.set(file("G:\\coding\\Test Servers\\TimeRewards\\plugins"))
     }
 }
