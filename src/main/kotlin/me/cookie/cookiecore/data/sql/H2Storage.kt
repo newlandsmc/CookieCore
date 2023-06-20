@@ -147,6 +147,15 @@ class H2Storage(private val plugin: JavaPlugin, private val fileName: String) {
         return resultList
     }
 
+    fun deleteRowsWhere(
+            table: String,
+            column: String,
+            where: String,
+    ): Int {
+        val preparedStatement = connection!!.prepareStatement("DELETE FROM $table WHERE $where;")
+        return preparedStatement.executeUpdate()
+    }
+
     fun getTable(table: String,
                  orderColumn: String = "",
                  orderStyle: String = "",
